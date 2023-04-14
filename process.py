@@ -28,7 +28,7 @@ REQUESTED_STRUCTURE = """\
 "roles": ARRAY[{ // roles the company is looking for
  "job_title": STR, // job title
  "seniority": ARRAY[STR], // expected seniority, array as sometimes multiple levels are mentionned
- "salary": INT, // salary, base if described separately, total compensation if written together
+ "salary": INT, // salary. Expand if necessary, example 90K become 90000. If salary is a range, take the lower bound.
  "currency": STR, // salary currency, example USD, EUR, GBP, JPY
  "incentives": STR, // incentives on top of the base salary
  "employment type": STR // either `full-time`, `part-time` or `contractor`
@@ -207,7 +207,7 @@ def main(comments_file: Path, output: Path, max_parallel_requests: int) -> None:
     # Cost as of 2023/04/14 is USD 0.002 per 1K token
     cost_per_token = 0.002 / 1000
     logger.info(
-        "Processing {} comments cost (in USD):\n".format(
+        "Processed {} comments, cost (in USD): {}\n".format(
             len(results), sum(x["total_tokens"] for x in results) * cost_per_token
         )
     )
