@@ -2,9 +2,9 @@
 
 Extract structured data from free text in Hacker News [who is hiring monthly threads](https://news.ycombinator.com/item?id=35424807), using HN and OpenAI APIs.
 
-![example of output after processing with pandas](./example_output.png)
+_The structured output will look like:_
 
-_Example of output after processing with pandas_
+![example of structured output](./example_output.png)
 
 Usage:
 ```bash

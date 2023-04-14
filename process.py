@@ -15,6 +15,8 @@ import openai
 
 logger = logging.getLogger("base")
 
+# Define the expected structure the model should output.
+# Be careful not to be too verbose to limit length (and so cost)
 # TODO: use yaml instead of json? Use slightly less tokens
 REQUESTED_STRUCTURE = """\
 {
@@ -144,10 +146,13 @@ class ProcessOutput:
         return r
 
     def _process(self, source_comment) -> Dict:
+        # Transform markup to plain text
         comment = self.html_parser(source_comment["text"])
 
+        # Get model output
         response = self.chat_completion(comment)
 
+        # Merge source infos, response and status
         row = (
             {
                 "hn_id": source_comment["id"],
@@ -170,12 +175,14 @@ class ProcessOutput:
 
 
 def tqdm_parallel_map(executor, fn, *iterables):
+    """Show progress with tqdm"""
+
     futures_list = []
 
     for iterable in iterables:
         futures_list += [executor.submit(fn, i) for i in iterable]
 
-    # TODO: show running cost in tqdm bar
+    # TODO: show running cost in tqdm bar?
     for f in tqdm(concurrent.futures.as_completed(futures_list), total=len(futures_list)):
         yield f.result()
 
