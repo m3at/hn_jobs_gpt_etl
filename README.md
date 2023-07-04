@@ -2,32 +2,41 @@
 
 Extract structured data from free text in Hacker News [who is hiring monthly threads](https://news.ycombinator.com/item?id=35424807), using HN and OpenAI APIs.
 
-_The structured output will look like:_
+The structured output will look like:
 
 ![example of structured output](./example_output.png)
-
-Usage:
-```bash
-# HN item id of latest hiring thread
-export THREAD_ID="35424807"
-
-# Fetch comments from HN api
-./get_comments.sh "$THREAD_ID"
-
-# Set your OpenAI API key
-export OPENAI_API_KEY="..."
-
-# Process each comments, will save to output.jsonl
-# Cost about $0.50 for 350 comments (size of latest HN thread)
-# Take about 30s
-./process.py "comments_$THREAD_ID.json" [--output output.jsonl] [--max-parallel-requests 64]
-```
 
 Dependencies: `jq`, `openai`, `tqdm`
 ```bash
 [[ $(uname) == "Darwin" ]] && brew install jq || apt install jq
 python3 -m pip install -U openai tqdm
 ```
+
+Threads from January to June are uploaded in [archive/](archive/) (PR welcome to add more).
+
+Usage:
+```bash
+# HN item id of latest hiring thread
+export THREAD_ID="35424807"
+
+# Set your OpenAI API key
+export OPENAI_API_KEY="..."
+
+# Fetch comments from HN api
+./get_comments.sh "$THREAD_ID"
+
+# Process each comments, will save to output.jsonl
+# Cost about $0.50 for 350 comments (size of latest HN thread)
+# Take about 30s
+./process.py "comments_$THREAD_ID.json" [--output output.jsonl] [--max-parallel-requests 64]
+
+# Or combined, will save the result under archive/NAME_OF_RESULTING_FILE.jsonl.tar.gz
+./process_thread.sh "$THREAD_ID" NAME_OF_RESULTING_FILE
+```
+
+TODO:
+- [ ] Make use of [function calling](https://openai.com/blog/function-calling-and-other-api-updates)
+- [ ] Reduce costs with more compact prompt
 
 ### Post-processing
 

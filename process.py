@@ -170,7 +170,7 @@ class ProcessOutput:
         # TODO: handle failures elegantly
         try:
             return self._process(source_comment)
-        except Exception as _:
+        except Exception:
             logger.warning(f"Failed on:\n{source_comment}")
 
 
@@ -194,7 +194,7 @@ def main(comments_file: Path, output: Path, max_parallel_requests: int) -> None:
         all_comments = json.load(f)
 
     # Ignore deleted comments
-    all_comments = [x for x in all_comments if not "deleted" in x.keys()]
+    all_comments = [x for x in all_comments if all(k not in x.keys() for k in ["dead", "deleted"])]
 
     # Load API key
     openai.api_key = os.getenv(
@@ -209,7 +209,7 @@ def main(comments_file: Path, output: Path, max_parallel_requests: int) -> None:
 
     logger.info("Processed all comments, checking results")
 
-    results = [json.loads(x) for x in Path("output.jsonl").read_text().splitlines()]
+    results = [json.loads(x) for x in output.read_text().splitlines()]
 
     # Cost as of 2023/04/14 is USD 0.002 per 1K token
     cost_per_token = 0.002 / 1000
