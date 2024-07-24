@@ -83,3 +83,9 @@ df["salary_in_usd"] = df.T.apply(convert_currency)
 # Show top salaries
 print(df[["name", "salary_in_usd", "job_title", "locations"]].sort_values(by="salary_in_usd", ascending=False))
 ```
+
+---
+
+### Previous approach
+
+Look at the [gpt-3.5 branch](https://github.com/m3at/hn_jobs_gpt_etl/tree/gpt-3.5) (or the [v1.0-gpt-3.5 tag](https://github.com/m3at/hn_jobs_gpt_etl/releases/tag/v1.0-gpt-3.5)) for an early 2023 verions using GPT-3.5 without function calling or json mode.
