@@ -6,10 +6,11 @@ The structured output will look like:
 
 ![example of structured output](./example_output.png)
 
-Dependencies: `jq`, `openai`, `tqdm`
+Dependencies: `jq`, `openai`, `rich`, `tenacity`
 ```bash
+# Use poetry, or:
 [[ $(uname) == "Darwin" ]] && brew install jq || apt install jq
-python3 -m pip install -U openai tqdm
+python3 -m pip install -U openai rich tenacity
 ```
 
 Threads from January to June are uploaded in [archive/](archive/) (PR welcome to add more).
@@ -26,7 +27,7 @@ export OPENAI_API_KEY="..."
 ./get_comments.sh "$THREAD_ID"
 
 # Process each comments, will save to output.jsonl
-# Cost about $0.50 for 350 comments (size of latest HN thread)
+# Cost about $0.07 for 350 comments (size of latest HN thread), using gpt-4o-mini
 # Take about 30s
 ./process.py "comments_$THREAD_ID.json" [--output output.jsonl] [--max-parallel-requests 64]
 
@@ -35,8 +36,8 @@ export OPENAI_API_KEY="..."
 ```
 
 TODO:
-- [ ] Make use of [function calling](https://openai.com/blog/function-calling-and-other-api-updates)
-- [ ] Reduce costs with more compact prompt
+- [x] Make use of [function calling](https://openai.com/blog/function-calling-and-other-api-updates)
+- [x] Reduce costs with more compact prompt
 
 ### Post-processing
 

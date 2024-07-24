@@ -286,7 +286,7 @@ def main(comments_file: Path, output: Path, max_parallel_requests: int) -> None:
     ) as executor:
         costs = list(threads_progress(executor, processor, all_comments))
 
-    logger.info(f"Total cost: {sum(costs):.2f} USD")
+    logger.info(f"Total cost: {sum(costs):.2f} USD, for {len(costs)} entries")
 
 
 if __name__ == "__main__":

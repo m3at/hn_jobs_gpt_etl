@@ -28,7 +28,6 @@ documentation = "https://github.com/m3at/hn_jobs_gpt_etl"
 [tool.poetry.dependencies]
 python = "^3.12"
 openai = "^1.35.9"
-tqdm = "^4.66.4"
 rich = "^13.7.1"
 tenacity = "^8.4.2"
 
