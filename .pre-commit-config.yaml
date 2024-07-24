@@ -1,0 +1,13 @@
+repos:
+# Use ruff for linting and formatting
+- repo: https://github.com/astral-sh/ruff-pre-commit
+  rev: v0.5.4
+  hooks:
+    # Linter
+    - id: ruff
+      args: [ --fix ]
+    # Formatter
+    - id: ruff-format
+    # Sort imports
+    - id: ruff
+      args: [ --fix, --select=I ]

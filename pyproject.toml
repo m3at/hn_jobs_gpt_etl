@@ -1,0 +1,41 @@
+[project]
+requires-python = ">=3.12"
+
+[tool.poetry]
+package-mode = false
+name = "hn_jobs_gpt_etl"
+version = "0.1.0"
+description = ""
+authors = ["Paul Willot <kiwi.pwillot@gmail.com>"]
+license = "MIT"
+readme = "README.md"
+keywords = [
+  "hn", "llm", "gpt", "sql",
+]
+classifiers = [
+  "Development Status :: 4 - Beta",
+  "Environment :: Console",
+  "Intended Audience :: Developers",
+  "Operating System :: OS Independent",
+  "License :: OSI Approved :: MIT License",
+  "License :: OSI Approved :: Apache Software License",
+  "Programming Language :: Python",
+  "Programming Language :: Python :: 3 :: Only",
+]
+repository = "https://github.com/m3at/hn_jobs_gpt_etl"
+documentation = "https://github.com/m3at/hn_jobs_gpt_etl"
+
+[tool.poetry.dependencies]
+python = "^3.12"
+openai = "^1.35.9"
+tqdm = "^4.66.4"
+rich = "^13.7.1"
+tenacity = "^8.4.2"
+
+[tool.poetry.group.dev.dependencies]
+ruff = "^0.5.4"
+pre-commit = "^3.7.1"
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"
