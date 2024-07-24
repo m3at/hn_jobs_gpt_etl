@@ -6,6 +6,12 @@ The structured output will look like:
 
 ![example of structured output](./example_output.png)
 
+_Demo. Yes the progress bar slow down at the end, because some concurrent threads are slower 🤷_
+
+https://github.com/user-attachments/assets/bfd16ddf-8aec-40a4-a66b-2174da3055c7
+
+
+
 Dependencies: `jq`, `openai`, `rich`, `tenacity`
 ```bash
 # Use poetry, or:
